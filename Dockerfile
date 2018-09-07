@@ -20,3 +20,8 @@ RUN find . -iname '*.o' -exec rm {} \; && \
     find . -iname '*.a' -exec rm {} \;
 
 COPY . /app/
+
+# This fixes "server is already running" issue.
+# https://stackoverflow.com/questions/35022428/rails-server-is-still-running-in-a-new-opened-docker-container
+ENTRYPOINT ["scripts/docker-entry.sh"]
+CMD ["rails", "server"]
